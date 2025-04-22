@@ -38,10 +38,19 @@ export default function ProcessMap({ onSelectDepartment }: ProcessMapProps) {
               strategicDepartments.map(dept => (
                 <div
                   key={dept.id}
-                  className="process-card bg-white rounded-lg shadow p-4 cursor-pointer hover:shadow-lg transition-all strategic-card"
+                  className="process-card bg-white rounded-lg shadow p-4 cursor-pointer hover:shadow-lg transition-all strategic-card flex"
                   onClick={() => onSelectDepartment(dept)}
                 >
-                  <h4 className="font-semibold text-gray-800">{dept.name}</h4>
+                  <div className="flex-shrink-0 w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mr-3">
+                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-lg text-gray-800">{dept.name}</h4>
+                    <p className="text-sm text-gray-600 mt-1">Gestión y planificación estratégica</p>
+                    <div className="text-xs text-gray-400 mt-2">3 subprocesos</div>
+                  </div>
                 </div>
               ))
             )}
