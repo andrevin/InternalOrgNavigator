@@ -71,9 +71,9 @@ export const subprocesses = pgTable("subprocesses", {
 });
 
 export const subprocessesRelations = relations(subprocesses, ({ one, many }) => ({
-  department: one(departments, {
-    fields: [subprocesses.departmentId],
-    references: [departments.id],
+  macroprocess: one(macroprocesses, {
+    fields: [subprocesses.macroprocessId],
+    references: [macroprocesses.id],
   }),
   documents: many(documents),
 }));
