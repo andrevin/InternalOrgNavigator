@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Department } from "@shared/schema";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Settings, FileText, Tool, FolderIcon } from "lucide-react";
 
 interface ProcessMapProps {
   onSelectDepartment: (department: Department) => void;
@@ -38,10 +39,20 @@ export default function ProcessMap({ onSelectDepartment }: ProcessMapProps) {
               strategicDepartments.map(dept => (
                 <div
                   key={dept.id}
-                  className="process-card bg-white rounded-lg shadow p-4 cursor-pointer hover:shadow-lg transition-all strategic-card"
+                  className="process-card bg-white rounded-lg shadow p-4 cursor-pointer hover:shadow-lg transition-all strategic-card flex"
                   onClick={() => onSelectDepartment(dept)}
                 >
-                  <h4 className="font-semibold text-gray-800">{dept.name}</h4>
+                  <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
+                    <Settings className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-lg text-gray-800">{dept.name}</h4>
+                    <p className="text-sm text-gray-600 mt-1">Planificación y gestión estratégica</p>
+                    <div className="mt-2 text-xs text-gray-500 flex items-center">
+                      <FolderIcon className="h-3 w-3 mr-1" />
+                      <span>9 subprocesos</span>
+                    </div>
+                  </div>
                 </div>
               ))
             )}
@@ -60,10 +71,20 @@ export default function ProcessMap({ onSelectDepartment }: ProcessMapProps) {
               operationalDepartments.map(dept => (
                 <div
                   key={dept.id}
-                  className="process-card bg-white rounded-lg shadow p-4 cursor-pointer hover:shadow-lg transition-all operational-card"
+                  className="process-card bg-white rounded-lg shadow p-4 cursor-pointer hover:shadow-lg transition-all operational-card flex"
                   onClick={() => onSelectDepartment(dept)}
                 >
-                  <h4 className="font-semibold text-gray-800">{dept.name}</h4>
+                  <div className="flex-shrink-0 w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mr-3">
+                    <FileText className="h-6 w-6 text-blue-500" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-lg text-gray-800">{dept.name}</h4>
+                    <p className="text-sm text-gray-600 mt-1">Ejecución y operaciones clave</p>
+                    <div className="mt-2 text-xs text-gray-500 flex items-center">
+                      <FolderIcon className="h-3 w-3 mr-1" />
+                      <span>12 subprocesos</span>
+                    </div>
+                  </div>
                 </div>
               ))
             )}
@@ -82,10 +103,20 @@ export default function ProcessMap({ onSelectDepartment }: ProcessMapProps) {
               supportDepartments.map(dept => (
                 <div
                   key={dept.id}
-                  className="process-card bg-white rounded-lg shadow p-4 cursor-pointer hover:shadow-lg transition-all support-card"
+                  className="process-card bg-white rounded-lg shadow p-4 cursor-pointer hover:shadow-lg transition-all support-card flex"
                   onClick={() => onSelectDepartment(dept)}
                 >
-                  <h4 className="font-semibold text-gray-800">{dept.name}</h4>
+                  <div className="flex-shrink-0 w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center mr-3">
+                    <Tool className="h-6 w-6 text-amber-500" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-lg text-gray-800">{dept.name}</h4>
+                    <p className="text-sm text-gray-600 mt-1">Soporte y servicios internos</p>
+                    <div className="mt-2 text-xs text-gray-500 flex items-center">
+                      <FolderIcon className="h-3 w-3 mr-1" />
+                      <span>6 subprocesos</span>
+                    </div>
+                  </div>
                 </div>
               ))
             )}
