@@ -9,6 +9,15 @@ interface SubprocessViewProps {
 }
 
 export default function SubprocessView({ department, onSelectSubprocess }: SubprocessViewProps) {
+  const { data: documents } = useQuery<Document[]>({
+    queryKey: ['/api/documents'],
+    queryFn: async () => {
+      const response = await fetch('/api/documents');
+      if (!response.ok) throw new Error('Error al cargar los documentos');
+      return response.json();
+    }
+  });
+
   const { data: subprocesses, isLoading } = useQuery<Subprocess[]>({
     queryKey: ['/api/subprocesses', { departmentId: department.id }],
     queryFn: async () => {
@@ -53,10 +62,22 @@ export default function SubprocessView({ department, onSelectSubprocess }: Subpr
               className="process-card bg-white rounded-lg shadow p-4 cursor-pointer hover:shadow-lg transition-all border border-gray-200"
               onClick={() => onSelectSubprocess(subprocess)}
             >
-              <h4 className="font-semibold text-gray-800">{subprocess.name}</h4>
-              <div className="flex items-center mt-2 text-xs text-gray-500">
-                <File className="h-4 w-4 mr-1" />
-                <span>Ver documentos</span>
+              <h4 className="text-lg font-semibold text-gray-800 mb-2">{subprocess.name}</h4>
+              <p className="text-sm text-gray-600 mb-3">Gestión y documentación del subproceso</p>
+              
+              <div className="flex items-center gap-4 pt-3 border-t border-gray-100">
+                <div className="flex items-center text-xs text-gray-500">
+                  <File className="h-4 w-4 mr-1" />
+                  <span>{documents?.filter(doc => doc.type === 'Manuales' && doc.subprocessId === subprocess.id).length || 0} Manuales</span>
+                </div>
+                <div className="flex items-center text-xs text-gray-500">
+                  <File className="h-4 w-4 mr-1" />
+                  <span>{documents?.filter(doc => doc.type === 'SOPs' && doc.subprocessId === subprocess.id).length || 0} SOPs</span>
+                </div>
+                <div className="flex items-center text-xs text-gray-500">
+                  <File className="h-4 w-4 mr-1" />
+                  <span>{documents?.filter(doc => doc.type === 'Formatos' && doc.subprocessId === subprocess.id).length || 0} Formatos</span>
+                </div>
               </div>
             </div>
           ))
