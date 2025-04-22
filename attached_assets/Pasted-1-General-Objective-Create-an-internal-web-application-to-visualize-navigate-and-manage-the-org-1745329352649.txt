@@ -1,0 +1,48 @@
+1. General Objective:
+Create an internal web application to visualize, navigate, and manage the organization's process structure, access associated documentation, and display relevant external content (like indicators) via an iframe. The application must be highly configurable through an administration panel, its primary user interface must be in Spanish, and development should use Node.js for the backend and PostgreSQL for the database.
+2. Primary Audience:
+Company employees needing to consult processes and documentation.
+Administrators needing to create, modify, and delete the process structure, associated documents, and the side panel content configuration.
+3. Key Functional Requirements:
+Main View (User Interface in Spanish):
+Branding: Display the provided image/logo in the header/main area.
+Layout: Vertical split:
+Main Area (Approx. 75% width): Process Map or Subprocess View.
+Side Area (Approx. 25% width): Will contain an <iframe>.
+Process Map:
+Default view. Structure: Strategic (Estratégicos), Operational (Operativos), Support (Apoyo) - UI text in Spanish.
+Blocks/nodes for Departments.
+Departments (name, category) configurable (CRUD) via admin panel.
+Click Department -> Shows "Subprocesses" view.
+Subprocess View:
+Visually displays Subprocesses for the selected department.
+Subprocesses (name, associated dept.) configurable (CRUD) via admin panel.
+Click Subprocess -> Shows documentation sections.
+Documentation View (per Subprocess):
+Sections: "Manuales" (Manuals), "SOPs", "Formatos" (Formats/Templates) - UI text in Spanish.
+List of links (descriptive name, URL).
+Links configurable (CRUD) per subprocess via admin panel.
+Side Area (Iframe Content):
+Located in the side area (25% width).
+Will display external content embedded via an <iframe>.
+The source URL (src) for this <iframe> must be dynamically loaded based on the configuration set by the administrator.
+Admin Panel:
+Access: Gear icon (⚙️) (requires authentication).
+Administrator Functionalities (Full CRUD):
+Manage Departments: Create, Modify (name, category), Delete.
+Manage Subprocesses: Create, Modify (name, associated dept.), Delete.
+Manage Documentation: Add, Modify (name, URL), Delete links per subprocess/section.
+Manage Side Panel (Iframe): Allow the administrator to define and modify the URL (src) to be loaded into the side area's <iframe>. (Optional/Desirable): If feasible and necessary, also allow configuration of specific dimensions (width/height) for the iframe, although the main width is defined by the overall layout.
+4. Design and UX Requirements:
+Visual Style: Modern, clean, professional. Intuitive interface.
+UI Language: Spanish.
+Colors: Base: Primary #7dba42, Secondary/Neutral #5c646f. Good contrast.
+Interactivity: Smooth transitions, clear visual feedback.
+Responsiveness: Consider basic tablet adaptation.
+5. Non-Functional Requirements:
+Required Technology:
+Backend: Node.js (Frameworks like Express.js can be suggested).
+Database: PostgreSQL.
+Frontend: To be defined (React, Vue, Angular, or similar are good options).
+Authentication: Secure access for the admin panel.
+Document Hosting: App manages links, not files. Iframe loads content from the configured URL.
