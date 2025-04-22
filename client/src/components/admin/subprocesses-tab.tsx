@@ -204,7 +204,7 @@ export default function SubprocessesTab() {
             <SelectValue placeholder="Todos los departamentos" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">Todos los departamentos</SelectItem>
+            <SelectItem value="default">Todos los departamentos</SelectItem>
             {departments?.map(dept => (
               <SelectItem key={dept.id} value={dept.id.toString()}>
                 {dept.name}
@@ -213,7 +213,7 @@ export default function SubprocessesTab() {
           </SelectContent>
         </Select>
       </div>
-      
+
       {isLoadingDepartments || isLoadingSubprocesses ? (
         <div className="flex justify-center py-8">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
