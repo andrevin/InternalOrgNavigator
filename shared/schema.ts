@@ -20,6 +20,10 @@ export const usersRelations = relations(users, ({ one }) => ({
     fields: [users.departmentId],
     references: [departments.id],
   }),
+  macroprocess: one(macroprocesses, {
+    fields: [users.macroprocessId],
+    references: [macroprocesses.id],
+  }),
 }));
 
 export const insertUserSchema = createInsertSchema(users).pick({
