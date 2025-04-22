@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Department } from "@shared/schema";
+import { Department, Subprocess } from "@shared/schema"; // Assuming Subprocess type is defined
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface ProcessMapProps {
@@ -11,7 +11,11 @@ export default function ProcessMap({ onSelectDepartment }: ProcessMapProps) {
     queryKey: ['/api/departments'],
   });
 
-  if (isLoading) {
+  const { data: subprocesses, isLoading: subprocessesLoading } = useQuery<Subprocess[]>({
+    queryKey: ['/api/subprocesses'], // Assuming API endpoint for subprocesses
+  });
+
+  if (isLoading || subprocessesLoading) {
     return <ProcessMapSkeleton />;
   }
 
@@ -23,7 +27,7 @@ export default function ProcessMap({ onSelectDepartment }: ProcessMapProps) {
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-semibold text-secondary-dark mb-4">Mapa de Procesos</h2>
-      
+
       {/* Process Categories */}
       <div className="space-y-8">
         {/* Strategic Processes */}
@@ -49,14 +53,16 @@ export default function ProcessMap({ onSelectDepartment }: ProcessMapProps) {
                   <div className="flex-1">
                     <h4 className="font-semibold text-lg text-gray-800">{dept.name}</h4>
                     <p className="text-sm text-gray-600 mt-1">Gestión y planificación estratégica</p>
-                    <div className="text-xs text-gray-400 mt-2">3 subprocesos</div>
+                    <div className="text-xs text-gray-400 mt-2">
+                      {subprocesses?.filter(sub => sub.departmentId === dept.id).length || 0} subprocesos
+                    </div>
                   </div>
                 </div>
               ))
             )}
           </div>
         </div>
-        
+
         {/* Operational Processes */}
         <div>
           <h3 className="text-lg font-medium text-secondary mb-2 border-b border-gray-200 pb-2">Procesos Operativos</h3>
@@ -80,14 +86,16 @@ export default function ProcessMap({ onSelectDepartment }: ProcessMapProps) {
                   <div className="flex-1">
                     <h4 className="font-semibold text-lg text-gray-800">{dept.name}</h4>
                     <p className="text-sm text-gray-600 mt-1">Gestión de operaciones</p>
-                    <div className="text-xs text-gray-400 mt-2">3 subprocesos</div>
+                    <div className="text-xs text-gray-400 mt-2">
+                      {subprocesses?.filter(sub => sub.departmentId === dept.id).length || 0} subprocesos
+                    </div>
                   </div>
                 </div>
               ))
             )}
           </div>
         </div>
-        
+
         {/* Support Processes */}
         <div>
           <h3 className="text-lg font-medium text-secondary mb-2 border-b border-gray-200 pb-2">Procesos de Apoyo</h3>
@@ -111,7 +119,9 @@ export default function ProcessMap({ onSelectDepartment }: ProcessMapProps) {
                   <div className="flex-1">
                     <h4 className="font-semibold text-lg text-gray-800">{dept.name}</h4>
                     <p className="text-sm text-gray-600 mt-1">Servicios de soporte</p>
-                    <div className="text-xs text-gray-400 mt-2">3 subprocesos</div>
+                    <div className="text-xs text-gray-400 mt-2">
+                      {subprocesses?.filter(sub => sub.departmentId === dept.id).length || 0} subprocesos
+                    </div>
                   </div>
                 </div>
               ))
@@ -127,7 +137,7 @@ function ProcessMapSkeleton() {
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-semibold text-secondary-dark mb-4">Mapa de Procesos</h2>
-      
+
       {/* Process Categories */}
       <div className="space-y-8">
         {/* Strategic Processes */}
@@ -139,7 +149,7 @@ function ProcessMapSkeleton() {
             ))}
           </div>
         </div>
-        
+
         {/* Operational Processes */}
         <div>
           <h3 className="text-lg font-medium text-secondary mb-2 border-b border-gray-200 pb-2">Procesos Operativos</h3>
@@ -149,7 +159,7 @@ function ProcessMapSkeleton() {
             ))}
           </div>
         </div>
-        
+
         {/* Support Processes */}
         <div>
           <h3 className="text-lg font-medium text-secondary mb-2 border-b border-gray-200 pb-2">Procesos de Apoyo</h3>
