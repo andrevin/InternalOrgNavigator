@@ -227,7 +227,7 @@ export default function DocumentsTab() {
 
   // Handle subprocess filter change
   const handleSubprocessFilterChange = (value: string) => {
-    const subprocessId = value ? Number(value) : null;
+    const subprocessId = value === 'all' ? null : Number(value);
     setFilterSubprocessId(subprocessId);
   };
 
@@ -279,7 +279,7 @@ export default function DocumentsTab() {
               <SelectValue placeholder="Todos los subprocesos" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todos los subprocesos</SelectItem>
+              <SelectItem value="all">Todos los subprocesos</SelectItem>
               {subprocesses?.map(subprocess => (
                 <SelectItem key={subprocess.id} value={subprocess.id.toString()}>
                   {subprocess.name}
