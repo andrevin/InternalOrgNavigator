@@ -9,7 +9,17 @@ export const users = pgTable("users", {
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
   isAdmin: boolean("is_admin").default(false).notNull(),
+  departmentId: integer("department_id").references(() => departments.id, { onDelete: 'set null' }),
+  iframeUrl: text("iframe_url"),
+  iframeTitle: text("iframe_title").default("Panel de Usuario"),
 });
+
+export const usersRelations = relations(users, ({ one }) => ({
+  department: one(departments, {
+    fields: [users.departmentId],
+    references: [departments.id],
+  }),
+}));
 
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,

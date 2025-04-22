@@ -6,6 +6,7 @@ import DepartmentsTab from "./departments-tab";
 import SubprocessesTab from "./subprocesses-tab";
 import DocumentsTab from "./documents-tab";
 import IframeTab from "./iframe-tab";
+import UsersTab from "./users-tab";
 
 interface AdminModalProps {
   onClose: () => void;
@@ -43,6 +44,9 @@ export default function AdminModal({ onClose }: AdminModalProps) {
               <TabsTrigger value="iframe" className="px-4 py-2">
                 Panel Lateral
               </TabsTrigger>
+              <TabsTrigger value="users" className="px-4 py-2">
+                Usuarios
+              </TabsTrigger>
             </TabsList>
           </div>
           
@@ -61,6 +65,10 @@ export default function AdminModal({ onClose }: AdminModalProps) {
             
             <TabsContent value="iframe" className="mt-0 h-full">
               <IframeTab />
+            </TabsContent>
+            
+            <TabsContent value="users" className="mt-0 h-full">
+              <UsersTab />
             </TabsContent>
           </div>
         </Tabs>
