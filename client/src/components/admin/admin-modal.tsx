@@ -7,13 +7,15 @@ import SubprocessesTab from "./subprocesses-tab";
 import DocumentsTab from "./documents-tab";
 import IframeTab from "./iframe-tab";
 import UsersTab from "./users-tab";
+import NewDepartmentsTab from "./new-departments-tab"; // Added import for new tab
+
 
 interface AdminModalProps {
   onClose: () => void;
 }
 
 export default function AdminModal({ onClose }: AdminModalProps) {
-  const [activeTab, setActiveTab] = useState("departments");
+  const [activeTab, setActiveTab] = useState("macroprocesses"); // Changed default tab
 
   return (
     <Dialog open={true} onOpenChange={() => onClose()}>
@@ -28,15 +30,18 @@ export default function AdminModal({ onClose }: AdminModalProps) {
             <X className="h-6 w-6" />
           </button>
         </DialogHeader>
-        
+
         <Tabs value={activeTab} onValueChange={setActiveTab} className="flex flex-col overflow-hidden h-full">
           <div className="p-1 bg-gray-200">
             <TabsList className="w-full justify-start overflow-x-auto">
-              <TabsTrigger value="departments" className="px-4 py-2">
-                Departamentos
+              <TabsTrigger value="macroprocesses" className="px-4 py-2">
+                Macroprocesos
               </TabsTrigger>
               <TabsTrigger value="subprocesses" className="px-4 py-2">
                 Subprocesos
+              </TabsTrigger>
+              <TabsTrigger value="departments" className="px-4 py-2"> {/* Added Departments Tab */}
+                Departamentos
               </TabsTrigger>
               <TabsTrigger value="documents" className="px-4 py-2">
                 Documentación
@@ -49,24 +54,28 @@ export default function AdminModal({ onClose }: AdminModalProps) {
               </TabsTrigger>
             </TabsList>
           </div>
-          
+
           <div className="flex-1 overflow-y-auto p-4">
-            <TabsContent value="departments" className="mt-0 h-full">
-              <DepartmentsTab />
+            <TabsContent value="macroprocesses" className="mt-0 h-full"> {/* Renamed tab */}
+              <DepartmentsTab /> {/* Assuming DepartmentsTab handles macroprocesses */}
             </TabsContent>
-            
+
             <TabsContent value="subprocesses" className="mt-0 h-full">
               <SubprocessesTab />
             </TabsContent>
-            
+
+            <TabsContent value="departments" className="mt-0 h-full"> {/* Added content for Departments tab */}
+              <NewDepartmentsTab /> {/* Placeholder component - needs to be created */}
+            </TabsContent>
+
             <TabsContent value="documents" className="mt-0 h-full">
               <DocumentsTab />
             </TabsContent>
-            
+
             <TabsContent value="iframe" className="mt-0 h-full">
               <IframeTab />
             </TabsContent>
-            
+
             <TabsContent value="users" className="mt-0 h-full">
               <UsersTab />
             </TabsContent>

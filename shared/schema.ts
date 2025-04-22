@@ -10,6 +10,7 @@ export const users = pgTable("users", {
   password: text("password").notNull(),
   isAdmin: boolean("is_admin").default(false).notNull(),
   departmentId: integer("department_id").references(() => departments.id, { onDelete: 'set null' }),
+  macroprocessId: integer("macroprocess_id").references(() => macroprocesses.id, { onDelete: 'set null' }),
   iframeUrl: text("iframe_url"),
   iframeTitle: text("iframe_title").default("Panel de Usuario"),
 });
@@ -26,27 +27,43 @@ export const insertUserSchema = createInsertSchema(users).pick({
   password: true,
 });
 
-// Department model
-export const departments = pgTable("departments", {
+// Macroprocess model
+export const macroprocesses = pgTable("macroprocesses", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   category: text("category").notNull(), // 'Estratégicos', 'Operativos', 'Apoyo'
 });
 
-export const departmentsRelations = relations(departments, ({ many }) => ({
+export const macroprocessesRelations = relations(macroprocesses, ({ many }) => ({
   subprocesses: many(subprocesses),
+}));
+
+export const insertMacroprocessSchema = createInsertSchema(macroprocesses).pick({
+  name: true,
+  category: true,
+});
+
+// Department model (organizational units)
+export const departments = pgTable("org_departments", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  description: text("description"),
+});
+
+export const departmentsRelations = relations(departments, ({ many }) => ({
+  users: many(users),
 }));
 
 export const insertDepartmentSchema = createInsertSchema(departments).pick({
   name: true,
-  category: true,
+  description: true,
 });
 
 // Subprocess model
 export const subprocesses = pgTable("subprocesses", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
-  departmentId: integer("department_id").notNull().references(() => departments.id, { onDelete: 'cascade' }),
+  macroprocessId: integer("macroprocess_id").notNull().references(() => macroprocesses.id, { onDelete: 'cascade' }),
 });
 
 export const subprocessesRelations = relations(subprocesses, ({ one, many }) => ({
