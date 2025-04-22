@@ -253,7 +253,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "El usuario ya existe" });
       }
 
-      const { hashPassword } = await import('./auth');
+      const { hashPassword } = require('./auth');
       const user = await storage.createUser({
         username: req.body.username,
         password: await hashPassword(req.body.password),
