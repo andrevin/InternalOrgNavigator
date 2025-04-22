@@ -220,7 +220,7 @@ export default function DocumentsTab() {
 
   // Handle department filter change
   const handleDepartmentFilterChange = (value: string) => {
-    const departmentId = value ? Number(value) : null;
+    const departmentId = value === 'all' ? null : Number(value);
     setFilterDepartmentId(departmentId);
     setFilterSubprocessId(null); // Reset subprocess filter when department changes
   };
@@ -257,7 +257,7 @@ export default function DocumentsTab() {
               <SelectValue placeholder="Todos los departamentos" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todos los departamentos</SelectItem>
+              <SelectItem value="all">Todos los departamentos</SelectItem>
               {departments?.map(dept => (
                 <SelectItem key={dept.id} value={dept.id.toString()}>
                   {dept.name}
