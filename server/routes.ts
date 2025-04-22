@@ -227,6 +227,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/user", (req, res) => {
+    if (!req.isAuthenticated()) return res.sendStatus(401);
+    res.json(req.user);
+  });
+
+  // User management routes
+  app.get("/api/users", isAdmin, async (req, res, next) => {
+    try {
+      const users = await storage.getAllUsers();
+      res.json(users);
+    } catch (err) {
+      res.status(500).json({ message: "Error al obtener usuarios" });
+    }
+  });
+
+  app.post("/api/users", isAdmin, async (req, res, next) => {
+    try {
+      const user = await storage.createUser({
+        username: req.body.username,
+        password: await hashPassword(req.body.password),
+        departmentId: req.body.departmentId,
+        iframeUrl: req.body.iframeUrl,
+        iframeTitle: req.body.iframeTitle,
+      });
+      res.json(user);
+    } catch (err) {
+      res.status(500).json({ message: "Error al crear usuario" });
+    }
+  });
+
+
   const httpServer = createServer(app);
   return httpServer;
 }
