@@ -44,11 +44,11 @@ export interface IStorage {
   setConfig(key: string, value: string): Promise<void>;
   
   // Session store
-  sessionStore: session.SessionStore;
+  sessionStore: any; // Store from express-session
 }
 
 export class DatabaseStorage implements IStorage {
-  sessionStore: session.SessionStore;
+  sessionStore: any;
 
   constructor() {
     this.sessionStore = new PostgresSessionStore({ 

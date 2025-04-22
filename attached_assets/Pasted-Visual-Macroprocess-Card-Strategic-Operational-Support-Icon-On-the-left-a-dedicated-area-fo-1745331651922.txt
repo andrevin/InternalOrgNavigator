@@ -1,0 +1,31 @@
+Visual:
+Macroprocess Card (Strategic, Operational, Support)
+Icon: On the left, a dedicated area for an icon representing the macroprocess. The icon should be clear and placed on a distinctive yet soft colored background.
+Title: To the right of the icon, the name of the macroprocess (e.g., "Finance") in highlighted text (bold or larger font size).
+Description: Below the title, a brief description or the purpose of the macroprocess (e.g., "Financial planning and management") in normal-sized, regular-weight text.
+Bottom Information: At the bottom of the card, there should be a counter or indicator of the number of related items (e.g., "9 subprocesses"). The text should be clear but perhaps smaller in size or in a lighter/dimmer color.
+Subprocess Card
+Subprocess Title: Located in the top-left corner. Clear and highlighted text.
+Brief Description: Explanatory text below the title. Standard font size, regular weight, smaller than the title.
+Metadata/Bottom Counters: A row at the bottom of the card showing quantitative information about related items.
+Format: Pairs of [Icon] + [Number].
+Content: Each pair represents a type of associated element and its quantity (Manuals, SOPs, Work Instructions).
+Note: You must correct the following error when modifying subprocesses and documents. (This line seems like an instruction directed at the reader/developer)
+Functional
+Objective: Implement a robust user management system where each user is linked to a department and can be assigned a personalized dashboard/indicator panel via an iframe.
+Detailed Requirements:
+Department Management (Parameterization/Configuration):
+Role: Administrator User.
+Action: The administrator must have a dedicated interface to manage the organization's Departments.
+Capabilities: This management must include the ability to Create, Read/View, Update, and Delete (CRUD) departments.
+Purpose: To maintain an updated and controlled list of available departments for user assignment.
+User Management:
+Role: Administrator User.
+Action: The administrator will be able to create new users in the system.
+Mandatory Department Linking: During the creation (or registration) process of a new user, it will be mandatory to select and associate said user with one of the previously created departments (see point 1). The creation form must not allow saving the user without an assigned department.
+User Modification: The administrator will also be able to edit existing user information, including the ability to change the department they belong to.
+User Indicator Iframe Configuration (Parameterization/Configuration):
+Role: Administrator User.
+Action: Within the management or editing interface for each individual user, the administrator must have the ability to specify (configure) a unique URL for an iframe.
+Purpose: This URL will correspond to the specific indicator panel/dashboard that will be displayed to that particular user when they access the designated section for it in the application.
+Flexibility: It must be possible to assign different iframes to different users. It must also be possible to modify or delete the iframe URL assigned to an existing user.
