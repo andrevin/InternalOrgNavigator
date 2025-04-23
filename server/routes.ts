@@ -227,6 +227,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/user", (req, res) => {
+    if (!req.isAuthenticated()) return res.sendStatus(401);
+    res.json(req.user);
+  });
+
+  // User management routes
+  app.get("/api/users", isAdmin, async (req, res, next) => {
+    try {
+      const users = await storage.getAllUsers();
+      res.json(users);
+    } catch (err) {
+      res.status(500).json({ message: "Error al obtener usuarios" });
+    }
+  });
+
+  app.post("/api/users", isAdmin, async (req, res, next) => {
+    try {
+      if (!req.body.username || !req.body.password) {
+        return res.status(400).json({ message: "Username y password son requeridos" });
+      }
+
+      const existingUser = await storage.getUserByUsername(req.body.username);
+      if (existingUser) {
+        return res.status(400).json({ message: "El usuario ya existe" });
+      }
+
+      const { hashPassword } = await import('./auth');
+      const user = await storage.createUser({
+        username: req.body.username,
+        password: await hashPassword(req.body.password),
+        departmentId: req.body.departmentId || null,
+        iframeUrl: req.body.iframeUrl || null,
+        iframeTitle: req.body.iframeTitle || null,
+      });
+      res.status(201).json(user);
+    } catch (err) {
+      console.error('Error creating user:', err);
+      res.status(500).json({ message: "Error al crear usuario" });
+    }
+  });
+
+
   const httpServer = createServer(app);
   return httpServer;
 }
