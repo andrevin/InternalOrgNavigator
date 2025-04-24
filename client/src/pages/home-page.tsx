@@ -77,9 +77,9 @@ export default function HomePage() {
       <ProcessMap onSelectMacroprocess={handleShowSubprocesses} />
           )}
 
-          {view === 'subprocessView' && selectedDepartment && (
+          {view === 'subprocessView' && selectedMacroprocess && (
             <SubprocessView 
-              department={selectedDepartment} 
+              macroprocess={selectedMacroprocess}
               onSelectSubprocess={handleShowDocumentation} 
             />
           )}

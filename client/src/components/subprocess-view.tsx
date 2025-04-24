@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import { Department, Subprocess } from "@shared/schema";
+import { Department, macroprocesses, Subprocess } from "@shared/schema";
 import { Skeleton } from "@/components/ui/skeleton";
 import { File } from "lucide-react";
 
 interface SubprocessViewProps {
-  department: Department;
+  macroprocess: Macroprocess;
   onSelectSubprocess: (subprocess: Subprocess) => void;
 }
 
-export default function SubprocessView({ department, onSelectSubprocess }: SubprocessViewProps) {
+export default function SubprocessView({ macroprocess, onSelectSubprocess }: SubprocessViewProps) {
   const { data: documents } = useQuery<Document[]>({
     queryKey: ['/api/documents'],
     queryFn: async () => {
@@ -19,9 +19,9 @@ export default function SubprocessView({ department, onSelectSubprocess }: Subpr
   });
 
   const { data: subprocesses, isLoading } = useQuery<Subprocess[]>({
-    queryKey: ['/api/subprocesses', { departmentId: department.id }],
+    queryKey: ['/api/subprocesses', { macroprocessId: macroprocess?.id }],
     queryFn: async () => {
-      const response = await fetch(`/api/subprocesses?departmentId=${department.id}`);
+      const response = await fetch(`/api/subprocesses?macroprocessId=${macroprocess.id}`);
       if (!response.ok) throw new Error('Error al cargar los subprocesos');
       return response.json();
     }
@@ -42,15 +42,15 @@ export default function SubprocessView({ department, onSelectSubprocess }: Subpr
   };
 
   if (isLoading) {
-    return <SubprocessViewSkeleton department={department} />;
+    return <SubprocessViewSkeleton macroprocess={macroprocess} />;
   }
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-semibold text-secondary-dark">{department.name}</h2>
-        <span className={`px-3 py-1 rounded-full text-sm font-medium ${getCategoryClass(department.category)}`}>
-          {department.category}
+        <h2 className="text-2xl font-semibold text-secondary-dark">{macroprocess.name}</h2>
+        <span className={`px-3 py-1 rounded-full text-sm font-medium ${getCategoryClass(macroprocess.category)}`}>
+          {macroprocess.category}
         </span>
       </div>
       
@@ -108,9 +108,9 @@ function SubprocessViewSkeleton({ department }: { department: Department }) {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-semibold text-secondary-dark">{department.name}</h2>
-        <span className={`px-3 py-1 rounded-full text-sm font-medium ${getCategoryClass(department.category)}`}>
-          {department.category}
+        <h2 className="text-2xl font-semibold text-secondary-dark">{macroprocess.name}</h2>
+        <span className={`px-3 py-1 rounded-full text-sm font-medium ${getCategoryClass(macroprocess.category)}`}>
+          {macroprocess.category}
         </span>
       </div>
       
