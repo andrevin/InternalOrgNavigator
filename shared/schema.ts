@@ -38,6 +38,8 @@ export const macroprocesses = pgTable("macroprocesses", {
   category: text("category").notNull(), // 'Estratégicos', 'Operativos', 'Apoyo'
 });
 
+
+
 export const macroprocessesRelations = relations(macroprocesses, ({ many }) => ({
   subprocesses: many(subprocesses),
 }));
@@ -133,3 +135,6 @@ export type InsertDocument = z.infer<typeof insertDocumentSchema>;
 
 export type Config = typeof configs.$inferSelect;
 export type InsertConfig = z.infer<typeof insertConfigSchema>;
+
+export type Macroprocess = typeof macroprocesses.$inferSelect;
+
