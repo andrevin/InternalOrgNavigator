@@ -15,6 +15,11 @@ export default function ProcessMap({ onSelectMacroprocess }: ProcessMapProps) {
   const { data: macroprocesses, isLoading: macroprocessesLoading } = useQuery<Macroprocess[]>({
     // ¡¡IMPORTANTE!! Verifica que '/api/macroprocesses' sea tu endpoint real en el backend
     queryKey: ['/api/macroprocesses'],
+    queryFn: async () => {
+      const res = await fetch('/api/macroprocesses');
+      if (!res.ok) throw new Error('Error al cargar macroprocesos');
+      return res.json();
+    },
   });
 
   // La consulta de subprocesses parece correcta, usa el tipo Subprocess

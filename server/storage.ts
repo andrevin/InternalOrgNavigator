@@ -1,4 +1,5 @@
 import { users, type User, type InsertUser } from "@shared/schema";
+import { macroprocesses, type Macroprocess } from "@shared/schema";
 import { departments, type Department, type InsertDepartment } from "@shared/schema";
 import { subprocesses, type Subprocess, type InsertSubprocess } from "@shared/schema";
 import { documents, type Document, type InsertDocument } from "@shared/schema";
@@ -25,6 +26,7 @@ export interface IStorage {
   
   // Subprocess operations
   getAllSubprocesses(): Promise<Subprocess[]>;
+  getAllMacroprocesses(): Promise<Macroprocess[]>;
   getSubprocessesByDepartment(departmentId: number): Promise<Subprocess[]>;
   getSubprocess(id: number): Promise<Subprocess | undefined>;
   createSubprocess(subprocess: InsertSubprocess): Promise<Subprocess>;
@@ -115,6 +117,10 @@ export class DatabaseStorage implements IStorage {
   // Subprocess operations
   async getAllSubprocesses(): Promise<Subprocess[]> {
     return await db.select().from(subprocesses);
+  }
+
+   async getAllMacroprocesses(): Promise<Macroprocess[]> {
+      return await db.select().from(macroprocesses);
   }
 
   async getSubprocessesByDepartment(departmentId: number): Promise<Subprocess[]> {

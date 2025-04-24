@@ -76,6 +76,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+
+  app.get("/api/macroprocesses", async (req, res, next) => {
+    try {
+      const macros = await storage.getAllMacroprocesses();       // Implementar en storage
+      res.json(macros);
+    } catch (err) {
+      next(err);
+    }
+  });
+
+
+  
   // Subprocess routes
   app.get("/api/subprocesses", async (req, res, next) => {
     try {

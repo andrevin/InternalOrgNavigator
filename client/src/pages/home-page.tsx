@@ -7,12 +7,12 @@ import SubprocessView from "@/components/subprocess-view";
 import DocumentationView from "@/components/documentation-view";
 import SidePanel from "@/components/side-panel";
 import AdminModal from "@/components/admin/admin-modal";
-import { Department, Subprocess } from "@shared/schema";
+import { Macroprocess, Subprocess } from "@shared/schema";
 import { Loader2 } from "lucide-react";
 
 export default function HomePage() {
   const [view, setView] = useState<'processMap' | 'subprocessView' | 'documentationView'>('processMap');
-  const [selectedDepartment, setSelectedDepartment] = useState<Department | null>(null);
+  const [selectedMacroprocess, setSelectedMacroprocess] = useState<Macroprocess | null>(null);
   const [selectedSubprocess, setSelectedSubprocess] = useState<Subprocess | null>(null);
   const [showAdminModal, setShowAdminModal] = useState(false);
 
@@ -32,13 +32,13 @@ export default function HomePage() {
 
   const handleShowProcessMap = () => {
     setView('processMap');
-    setSelectedDepartment(null);
+    setSelectedMacroprocess(macro);
     setSelectedSubprocess(null);
   };
 
-  const handleShowSubprocesses = (department: Department) => {
+  const handleShowSubprocesses = (macro: Macroprocess) => {
     setView('subprocessView');
-    setSelectedDepartment(department);
+    setSelectedMacroprocess(macro);
     setSelectedSubprocess(null);
   };
 
@@ -67,14 +67,14 @@ export default function HomePage() {
         <div className="w-full md:w-3/4 bg-gray-100 p-4 md:p-6 overflow-y-auto transition-all">
           <Breadcrumb 
             view={view} 
-            department={selectedDepartment} 
+            macroprocess={selectedMacroprocess}     
             subprocess={selectedSubprocess}
             onShowProcessMap={handleShowProcessMap}
             onShowSubprocesses={handleBackToDepartment}
           />
 
           {view === 'processMap' && (
-            <ProcessMap onSelectDepartment={handleShowSubprocesses} />
+      <ProcessMap onSelectMacroprocess={handleShowSubprocesses} />
           )}
 
           {view === 'subprocessView' && selectedDepartment && (
