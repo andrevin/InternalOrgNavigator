@@ -67,7 +67,7 @@ export default function HomePage() {
         <div className="w-full md:w-3/4 bg-gray-100 p-4 md:p-6 overflow-y-auto transition-all">
           <Breadcrumb 
             view={view} 
-            macroprocess={selectedMacroprocess}     
+            macroprocess={selectedMacroprocess}
             subprocess={selectedSubprocess}
             onShowProcessMap={handleShowProcessMap}
             onShowSubprocesses={handleBackToDepartment}
